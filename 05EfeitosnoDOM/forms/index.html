@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forms</title>
+</head>
+<body>
+
+  <style>
+    label {
+      display: block;
+      margin-bottom: .5rem;
+      margin-top: 1rem;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    input, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: .5rem;
+      border: 2px solid #000;
+      font-size: 1rem;
+      margin-bottom: .5rem;
+    }
+
+    textarea {
+      max-height: 150px;
+    }
+
+    .invalido {
+      border-color: red;
+    }
+
+  </style>
+
+  <form name="contato" id="contato">
+    <label for="nome">Nome</label>
+    <input type="text" name="nome" id="nome" required>
+    <span class="erro"></span>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required>
+    <span class="erro"></span>
+
+    <label for="mensagem">Mensagem</label>
+    <textarea name="mensagem" id="mensagem"> </textarea>
+    <span class="text"></span>
+
+    <!-- <select name="cores" id="cores">
+      <option value="blue">azul</option>
+      <option value="red">vermelho</option>
+    </select> -->
+
+
+    <!-- <input type="color">
+    <input type="date">
+    <input type="number">
+    <input type="range">
+    <input type="password"> -->
+
+    <!-- <input type="checkbox" value="identidade" id="identidade"> -->
+  </form> 
+
+<script>
+  const contato = document.querySelector('#contato');
+  const text = document.querySelector('.text');
+  console.log(contato.elements.nome.value);
+
+  function handleKeyUp(event) {
+
+    const target = event.target;
+    if(!target.checkValidity()) {
+      target.classList.add('invalido');
+      contato.nome.setCustomValidity('Nome é necessário');
+      target.nextElementSibling.innerText = target.validationMessage;
+    }
+
+    console.log(event.target.value);
+    text.innerText = event.target.value;
+
+    document.body.style.backgroundColor = event.target.value;
+
+
+    if(event.target.checked) {
+      console.log(event.target.value);
+    }
+  }
+
+  contato.addEventListener('change', handleChange);
+
+  const dados = {};
+  function handleChange(event) {
+    dados[event.target.name] = event.target.value;
+    console.log(dados);
+  }
+
+
+  // KeyUp é a cada letra digitada ele pega o valor do form
+  // o change é sempre q mudar de form, ou seja, tirar o focus do form
+
+</script>
+</body>
+</html>
